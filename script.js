@@ -6,18 +6,44 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection){
     if (playerSelection.toLowerCase() === computerSelection) {
-        console.log(computerSelection + " " + playerSelection)
         return "This is a tie";
     } else if (playerSelection.toLowerCase() === "scissors" || computerSelection === "paper"){
-        console.log(computerSelection + " " + playerSelection)
         return "Opps bad, you have lost";  
     } else {
-        console.log(computerSelection + " " + playerSelection)
         return "Cheers, you have won";
     }
 };
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice().toLowerCase();
-
-console.log(playRound(playerSelection, computerSelection));
+function playGame(){
+    let declareWinner = {};
+    let results = [];
+    let round = 5;
+    while (round >= 1){
+        let playerSelection = prompt("What's your choice");
+        let computerSelection = getComputerChoice().toLowerCase();
+        if (playRound(playerSelection, computerSelection) === "This is a tie"){
+            results.push('t')
+        } else if (playRound(playerSelection, computerSelection) === "Cheers, you have won") {
+            results.push('w')
+        } else {
+            results.push('l')
+        }
+        round = round - 1;
+        }
+    console.log(results)  
+    for (const element of results) {
+        if (declareWinner[element]){
+            declareWinner[element] += 1;
+        }else {
+            declareWinner[element] = 1;
+        }
+    }
+    if (declareWinner.w > declareWinner.l) {
+        console.log("You have won");
+    } else if (declareWinner.w < declareWinner.l){
+        console.log("You have lost");
+    } else {
+        console.log("Its a draw");
+    }
+    }
+playGame();
